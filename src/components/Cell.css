@@ -1,0 +1,16 @@
+.node {
+    width: 30px;
+    height: 30px;
+    outline: 2px dotted royalblue;
+    display: inline-block;
+  }
+  
+  .node-finish {
+    background-color: red;
+  }
+  
+  .node-start {
+    background-color: green;
+  }
+
+  
