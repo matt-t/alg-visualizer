@@ -1,7 +1,7 @@
 .node {
-    width: 30px;
-    height: 30px;
-    outline: 2px dotted royalblue;
+    width: 25px;
+    height: 25px;
+    outline: 1px dotted royalblue;
     display: inline-block;
   }
   
