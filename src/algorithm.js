@@ -12,6 +12,7 @@ const wallCheck = node => {
     [-1, 0],
     [0, -1]
   ];
+  
   function sortNodes(unvisitedNodes) {
     unvisitedNodes.sort((a, b) => a.distance - b.distance);
   }
