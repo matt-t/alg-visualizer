@@ -46,7 +46,7 @@
   export function dijkstra(grid, startNode) {
     const solved = false
     const visitedNodes = [];
-    grid[startNode.row][startNode.col].distance = 0
+    startNode.distance = 0
     const unvisitedNodes = getAllNodes(grid);
     while (solved === false) {
       unvisitedNodes = sortNodes(unvisitedNodes)
