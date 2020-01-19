@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import Cell from './Cell';
-import './PathFinding.css';
+import React, { Component } from "react";
+import Cell from "./Cell";
+import "./PathFinding.css";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -29,7 +29,7 @@ const createNode = (col, row) => {
     isVisited: false,
     isWeight: false,
     isWall: false,
-    previousNode: null,
+    previousNode: null
   };
 };
 
@@ -43,7 +43,7 @@ const swapWeight = (grid, row, col) => {
   };
   newGrid[row][col] = newNode;
   return newGrid;
-}
+};
 
 const swapWall = (grid, row, col) => {
   const newGrid = grid.slice();
@@ -55,7 +55,7 @@ const swapWall = (grid, row, col) => {
   };
   newGrid[row][col] = newNode;
   return newGrid;
-}
+};
 
 export default class PathFinding extends Component {
   constructor() {
@@ -71,56 +71,58 @@ export default class PathFinding extends Component {
   componentDidMount() {
     const grid = getInitialGrid();
     console.log(grid[0][0]);
-    this.setState({grid: grid});
+    this.setState({ grid: grid });
   }
 
   handleMouseDown(row, col) {
     // console.log(row)
     // console.log(col)
-    var newGrid = []
+    var newGrid = [];
     if (this.state.grid[row][col].isFinish) {
       //console.log('stop')
       return;
     } else if (this.state.addingWalls) {
-      newGrid = swapWall(this.state.grid, row, col)
+      newGrid = swapWall(this.state.grid, row, col);
       //console.log('swap')
     } else {
-      newGrid = swapWeight(this.state.grid, row, col)}
+      newGrid = swapWeight(this.state.grid, row, col);
+    }
     // const newGrid = getWallOrWeight(this.state.grid, row, col);
-    this.setState({grid: newGrid, mouseIsPressed: true});
+    this.setState({ grid: newGrid, mouseIsPressed: true });
     console.log(this.state.grid[row][col]);
   }
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return;
-    var newGrid = []
+    var newGrid = [];
     if (this.state.grid[row][col].isFinish) {
       //console.log('stop')
       return;
     } else if (this.state.addingWalls) {
-      newGrid = swapWall(this.state.grid, row, col)
+      newGrid = swapWall(this.state.grid, row, col);
     } else {
-      newGrid = swapWeight(this.state.grid, row, col)}
-    this.setState({grid: newGrid});
+      newGrid = swapWeight(this.state.grid, row, col);
+    }
+    this.setState({ grid: newGrid });
     console.log(this.state.grid[row][col]);
   }
 
   handleMouseUp() {
-    this.setState({mouseIsPressed: false});
+    this.setState({ mouseIsPressed: false });
     //console.log('STOP');
   }
 
-  handleChangeWall () {
-    const newBool = !this.state.addingWalls
-    this.setState({addingWalls: newBool})
-    console.log(this.state.message)
+  handleChangeWall() {
+    const newBool = !this.state.addingWalls;
+    this.setState({ addingWalls: newBool });
+    console.log(this.state.message);
   }
 
   //kinda sketch need to bug
-  resetGrid () {
+  resetGrid() {
     const grid = getInitialGrid();
     console.log(grid[0][0]);
-    this.setState({grid: grid});
+    this.setState({ grid: grid });
   }
 
   // visualizeAlg () {
@@ -128,50 +130,58 @@ export default class PathFinding extends Component {
   // }
 
   render() {
-    const {grid, mouseIsPressed} = this.state;
+    const { grid, mouseIsPressed } = this.state;
     return (
       <div>
-      <div>
-        <h1 className ="title">PATH FINDER VISUALIZER</h1>
-        <p className ="italic">Made by: Dan Lu & Matthew Tam</p>
-        <button className="button" onClick={() => this.visualizeAlg() }>
-          Visualize
-        </button>
-        <button className="button" onClick={() => this.resetGrid() }>
-          Reset
-        </button>
-        <button className="button" onClick={() => this.handleChangeWall() }>
-          Change Wall
-        </button>
-      </div>
-      <div className="grid">>
-        {grid.map((row, rowIdx) => {
-          return (
-            <div key={rowIdx}>
-              {row.map((node, nodeIdx) => {
-                const {row, col, isFinish, isStart, isWeight, isWall} = node;
-                return (
-                  <Cell
-                    key={nodeIdx}
-                    col={col}
-                    isFinish={isFinish}
-                    isStart={isStart}
-                    isWeight={isWeight}
-                    isWall={isWall}
-                    mouseIsPressed={mouseIsPressed}
-                    onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                    onMouseEnter={(row, col) =>
-                      this.handleMouseEnter(row, col)
-                    }
-                    onMouseUp={() => this.handleMouseUp()}
-                    row={row}>
-                  </Cell>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
+        <div>
+          <h1 className="title">PATHFINDER VISUALIZER</h1>
+          <p className="italic">Made by: Dan Lu & Matthew Tam</p>
+          <button className="button" onClick={() => this.visualizeAlg()}>
+            Visualize
+          </button>
+          <button className="button" onClick={() => this.resetGrid()}>
+            Reset
+          </button>
+          <button className="button" onClick={() => this.handleChangeWall()}>
+            Change Wall
+          </button>
+        </div>
+        <div className="grid">
+          >
+          {grid.map((row, rowIdx) => {
+            return (
+              <div key={rowIdx}>
+                {row.map((node, nodeIdx) => {
+                  const {
+                    row,
+                    col,
+                    isFinish,
+                    isStart,
+                    isWeight,
+                    isWall
+                  } = node;
+                  return (
+                    <Cell
+                      key={nodeIdx}
+                      col={col}
+                      isFinish={isFinish}
+                      isStart={isStart}
+                      isWeight={isWeight}
+                      isWall={isWall}
+                      mouseIsPressed={mouseIsPressed}
+                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      onMouseEnter={(row, col) =>
+                        this.handleMouseEnter(row, col)
+                      }
+                      onMouseUp={() => this.handleMouseUp()}
+                      row={row}
+                    ></Cell>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
