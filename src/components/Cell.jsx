@@ -23,7 +23,7 @@ export default class Cell extends Component {
       ? 'node-wall'
       : isWeight
       ? 'node-weight'
-      : "";
+      : 'node-normal'
 
     return (
       <div

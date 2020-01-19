@@ -74,13 +74,13 @@ export default class PathFinding extends Component {
     this.setState({grid: grid});
   }
   handleMouseDown(row, col) {
-    var newG = []
+    var newGrid = []
     if (this.state.addingWalls) {
-      newG = swapWall(this.state.grid, row, col)
+      newGrid = swapWall(this.state.grid, row, col)
     } else {
-      newG = swapWeight(this.state.grid, row, col)}
+      newGrid = swapWeight(this.state.grid, row, col)}
     // const newGrid = getWallOrWeight(this.state.grid, row, col);
-    this.setState({grid: newG, mouseIsPressed: true});
+    this.setState({grid: newGrid, mouseIsPressed: true});
     console.log(this.state.grid[row][col]);
   }
 

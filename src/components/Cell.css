@@ -1,7 +1,7 @@
 .node {
     width: 20px;
     height: 20px;
-    outline: 1px dotted royalblue;
+    outline: 2px solid royalblue;
     display: inline-block;
 }
   
@@ -13,10 +13,14 @@
   background-color: green;
 }
 
+.node-normal {
+  background-color: white;
+}
+
 .node-wall {
   background-color: black;
 }
 
 .node-weight {
-  background-color: purple;
+  background-color: lightgrey;
 }
