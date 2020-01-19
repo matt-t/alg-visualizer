@@ -8,7 +8,11 @@ export default class Cell extends Component {
       col,
       isFinish,
       isStart,
+      isWeight,
       isWall,
+      onMouseDown,
+      onMouseEnter,
+      onMouseUp,
       row,
     } = this.props;
     const extraClassName = isFinish
@@ -17,12 +21,17 @@ export default class Cell extends Component {
       ? 'node-start'
       : isWall
       ? 'node-wall'
-      : '';
+      : isWeight
+      ? 'node-weight'
+      : 'node-normal'
 
     return (
       <div
         id={`node-${row}-${col}`}
-        className={`node ${extraClassName}`}>         
+        className={`node ${extraClassName}`}
+        onMouseDown={() => onMouseDown(row, col)}
+        onMouseEnter={() => onMouseEnter(row, col)}
+        onMouseUp={() => onMouseUp()}>   
       </div>
     );
   }
