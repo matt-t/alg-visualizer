@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Cell from "./Cell";
 import "./PathFinding.css";
+import {dijkstra, getNodesInShortestPathOrder} from "../algorithm"
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -125,9 +126,15 @@ export default class PathFinding extends Component {
     this.setState({ grid: grid });
   }
 
-  // visualizeAlg () {
-  //   const bigArray = dijkstra(this.state.grid, START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL);
-  // }
+  visualizeAlg () {
+    const startNode = this.state.grid[START_NODE_ROW][START_NODE_COL];
+    const bigArray = dijkstra(this.state.grid, startNode);
+     console.log(bigArray);
+  }
+
+  animateAlg () {
+    
+  }
 
   render() {
     const { grid, mouseIsPressed } = this.state;

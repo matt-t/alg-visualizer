@@ -1,53 +1,88 @@
-console.log('hello world')
-
-var mattsWomen = ['woman1', 'woman2']
-
-function womenPrinter(arr) {
-    var arrayLen = arr.length;
-    for (var i = 0; i < arrayLen; i++) {
-            console.log(mattsWomen[i]);
-        }
-}
-
-womenPrinter(mattsWomen)
-
-function square (xcor, ycor) {
-    this.xcor = xcor;
-    this.ycor = ycor;
-    this.visited = false;
-    this.wall = false;
-    this.start = false;
-    this.endPoint = false;
-}
-
-var visitedSquares = []
-var unvisitedSquares = []
-
-for (i = 0; i < 50; i++) {
-    tempArr = []
-    for (j = 0; j < 50; j++) {
-        tempArr.push(new square(i, j));
+const wallCheck = node => {
+    if (node.row > 49 || node.row < 0 || node.col > 24 || node.col < 0) {
+      return true;
+    } else if (node.isWall === true) {
+      return true;
+    } else return false;
+  };
+  
+  const neighborValues = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1]
+  ];
+  function sortNodes(unvisitedNodes) {
+    unvisitedNodes.sort((a, b) => a.distance - b.distance);
+  }
+  
+  const getNeighbors = (grid, node) => {
+    const tempNeighbors = [];
+    for (const direction in neighborValues) {
+      const tempNode = grid[node.row + direction[0]][node.col + direction[1]];
+      if (tempNode.isVisited === false && tempNode.isWall === false) {
+        tempNeighbors.push(tempNode);
+      }
+      return tempNeighbors;
     }
-    unvisitedSquares.push(tempArr)
-}
+  };
 
-function selectStart(xcor, ycor) {
-    unvisitedSquares[xcor][ycor].start = true
-}
-
-function selectEndPoint(xcor, ycor) {
-    unvisitedSquares[xcor][ycor].endPoint = true
-}
-function makeWall(xcor, ycor) {
-    unvisitedSquares[xcor][ycor].wall = true
-}
-
-function giveneighbors(xcor, ycor) {
-    
-}
-selectStart(0, 0)
-selectEndPoint(49, 49)
-makeWall(3, 3)
-console.log(unvisitedSquares[0][0].start)
-console.log(unvisitedSquares[49][49].endPoint)
-console.log(unvisitedSquares[3][3].wall)
+  const weight = 3;
+  
+  function getAllNodes(grid) {
+    const nodeArr = [];
+    for (const row of grid) {
+      for (const node of row) {
+        if (node.isWall === false) {
+          nodeArr.push(node);
+        }
+      }
+    }
+    return nodeArr;
+  }
+  
+  export function dijkstra(grid, startNode) {
+    var solved = false;
+    const visitedNodes = [];
+    startNode.distance = 0;
+    const unvisitedNodes = getAllNodes(grid);
+    while (solved === false) {
+      sortNodes(unvisitedNodes);
+      const closestNode = unvisitedNodes.shift();
+      unvisitedNodes.shift();
+      if (wallCheck(closestNode) === true) {
+        return visitedNodes;
+      }
+      if (closestNode.distance === Infinity) {
+        return visitedNodes;
+      }
+      visitedNodes.push(closestNode);
+      closestNode.isVisited = true;
+      if (closestNode.isFinish) {
+        solved = true;
+      }
+      const currentNeighbors = getNeighbors(grid, closestNode);
+      for (const neighbor of currentNeighbors) {
+        if (neighbor.isWeight === true) {
+          if (neighbor.distance > closestNode.distance + weight) {
+            neighbor.distance = closestNode.distance + weight;
+          }
+        } else if (neighbor.distance > closestNode.distance + 1) {
+          neighbor.distance = closestNode.distance + 1;
+        }
+        neighbor.previousNode = closestNode;
+      }
+    }
+    return visitedNodes;
+  }
+  
+  export function getNodesInShortestPathOrder(finishNode) {
+    const nodesInShortestPathOrder = [];
+    let currentNode = finishNode;
+    while (currentNode !== null) {
+      nodesInShortestPathOrder.unshift(currentNode);
+      currentNode = currentNode.previousNode;
+    }
+    return nodesInShortestPathOrder;
+  }
+  
