@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Cell from "./Cell";
 import "./PathFinding.css";
+import { dijkstra, getPath } from "./algorithm";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -16,7 +17,7 @@ const getInitialGrid = () => {
     }
     grid.push(currentRow);
   }
-  console.log("This is grid in function", grid[0]);
+  console.log("This is grid in function", grid);
   return grid;
 };
 
@@ -26,7 +27,7 @@ const createNode = (col, row) => {
     row,
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
-    distance: Infinity,
+    distance: 200,
     isVisited: false,
     isWeight: false,
     isWall: false,
@@ -72,7 +73,6 @@ export default class PathFinding extends Component {
   componentDidMount() {
     const grid = getInitialGrid();
     this.setState({ grid: grid });
-    console.log(grid[0][0]);
   }
   /*
   clap = (grid, row, col) => {
@@ -138,9 +138,17 @@ export default class PathFinding extends Component {
     this.setState({ grid: grid });
   }
 
-  // visualizeAlg () {
-  //   const bigArray = dijkstra(this.state.grid, START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL);
-  // }
+  visualizeAlg() {
+    const bigArray = dijkstra(
+      this.state.grid,
+      this.state.grid[START_NODE_ROW][START_NODE_COL]
+    );
+    const shortestPath = getPath(
+      this.state.grid[FINISH_NODE_ROW][FINISH_NODE_COL]
+    );
+    console.log("these are my visitedNodes", bigArray);
+    console.log("this is my shortest path", shortestPath);
+  }
 
   render() {
     const { grid, mouseIsPressed } = this.state;

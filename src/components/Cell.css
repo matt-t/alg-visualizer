@@ -1,8 +1,7 @@
 .node {
-<<<<<<< HEAD
-  width: 25px;
-  height: 25px;
-  outline: 1px dotted royalblue;
+  width: 20px;
+  height: 20px;
+  outline: 2px solid royalblue;
   display: inline-block;
 }
 
@@ -10,20 +9,6 @@
   background-color: red;
 }
 
-.node-start {
-  background-color: green;
-}
-=======
-    width: 20px;
-    height: 20px;
-    outline: 2px solid royalblue;
-    display: inline-block;
-}
-  
-.node-finish {
-  background-color: red;
-}
-  
 .node-start {
   background-color: green;
 }
@@ -39,4 +24,3 @@
 .node-weight {
   background-color: rgb(107, 105, 105);
 }
->>>>>>> branch-1
