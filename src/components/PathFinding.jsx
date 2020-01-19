@@ -86,12 +86,12 @@ export default class PathFinding extends Component {
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return;
-    var newG = []
+    var newGrid = []
     if (this.state.addingWalls) {
-      newG = swapWall(this.state.grid, row, col)
+      newGrid = swapWall(this.state.grid, row, col)
     } else {
-      newG = swapWeight(this.state.grid, row, col)}
-    this.setState({grid: newG});
+      newGrid = swapWeight(this.state.grid, row, col)}
+    this.setState({grid: newGrid});
     console.log(this.state.grid[row][col]);
   }
 
@@ -100,22 +100,28 @@ export default class PathFinding extends Component {
     console.log('STOP');
   }
 
-  handleEvent = (event) => {
+  handleChangeWall () {
     const newBool = !this.state.addingWalls
     this.setState({addingWalls: newBool})
     console.log(this.state.message)
   }
 
+  // visualizeAlg () {
+  //   const bigArray = dijkstra(this.state.grid, START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL);
+  // }
+
   render() {
     const {grid, mouseIsPressed} = this.state;
     return (
       <>
-        <button className="button">
+      <div>
+        <button className="button" onClick={() => this.visualizeAlg() }>
           Visualize
         </button>
-        <button className="button" onMouseDown={ this.handleEvent }>
+        <button className="button" onClick={() => this.handleChangeWall() }>
           Change Wall
         </button>
+      </div>
       <div className="grid">>
         {grid.map((row, rowIdx) => {
           return (
