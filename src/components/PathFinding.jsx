@@ -27,17 +27,44 @@ const createNode = (col, row) => {
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
     isVisited: false,
+    isWeight: false,
     isWall: false,
     previousNode: null,
   };
 };
+
+const swapWeight = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const newNode = {
+    ...node,
+    isWall: false,
+    isWeight: !node.isWeight
+  };
+  newGrid[row][col] = newNode;
+  return newGrid;
+}
+
+const swapWall = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const newNode = {
+    ...node,
+    isWall: !node.isWall,
+    isWeight: false
+  };
+  newGrid[row][col] = newNode;
+  return newGrid;
+}
 
 export default class PathFinding extends Component {
   constructor() {
     super();
     this.state = {
       grid: [],
-      message: "Mouse Event"
+      mouseIsPressed: false,
+      message: "Mouse Event",
+      addingWalls: true
     };
   }
 
@@ -46,41 +73,69 @@ export default class PathFinding extends Component {
     console.log(grid[0][0]);
     this.setState({grid: grid});
   }
+  handleMouseDown(row, col) {
+    var newG = []
+    if (this.state.addingWalls) {
+      newG = swapWall(this.state.grid, row, col)
+    } else {
+      newG = swapWeight(this.state.grid, row, col)}
+    // const newGrid = getWallOrWeight(this.state.grid, row, col);
+    this.setState({grid: newG, mouseIsPressed: true});
+    console.log(this.state.grid[row][col]);
+  }
 
+  handleMouseEnter(row, col) {
+    if (!this.state.mouseIsPressed) return;
+    var newG = []
+    if (this.state.addingWalls) {
+      newG = swapWall(this.state.grid, row, col)
+    } else {
+      newG = swapWeight(this.state.grid, row, col)}
+    this.setState({grid: newG});
+    console.log(this.state.grid[row][col]);
+  }
 
-  
-
+  handleMouseUp() {
+    this.setState({mouseIsPressed: false});
+    console.log('STOP');
+  }
 
   handleEvent = (event) => {
-    if (event.type === "mousedown") {
-           this.setState({ message: "Mouse Down"});
-           console.log(this.state.message)
-       } else {
-           this.setState({ message: "Mouse Up"});
-           console.log(this.state.message)
-       }
-   }
+    const newBool = !this.state.addingWalls
+    this.setState({addingWalls: newBool})
+    console.log(this.state.message)
+  }
 
   render() {
-    const {grid} = this.state;
+    const {grid, mouseIsPressed} = this.state;
     return (
       <>
-        <button className="btn btn-secondary" onMouseDown={ this.handleEvent } onMouseUp={ this.handleEvent } >
+        <button className="button">
           Visualize
+        </button>
+        <button className="button" onMouseDown={ this.handleEvent }>
+          Change Wall
         </button>
       <div className="grid">>
         {grid.map((row, rowIdx) => {
           return (
             <div key={rowIdx}>
               {row.map((node, nodeIdx) => {
-                const {row, col, isFinish, isStart, isWall} = node;
+                const {row, col, isFinish, isStart, isWeight, isWall} = node;
                 return (
                   <Cell
                     key={nodeIdx}
                     col={col}
                     isFinish={isFinish}
                     isStart={isStart}
+                    isWeight={isWeight}
                     isWall={isWall}
+                    mouseIsPressed={mouseIsPressed}
+                    onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                    onMouseEnter={(row, col) =>
+                      this.handleMouseEnter(row, col)
+                    }
+                    onMouseUp={() => this.handleMouseUp()}
                     row={row}>
                   </Cell>
                 );

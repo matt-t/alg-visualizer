@@ -3,14 +3,20 @@
     height: 20px;
     outline: 1px dotted royalblue;
     display: inline-block;
-  }
+}
   
-  .node-finish {
-    background-color: red;
-  }
+.node-finish {
+  background-color: red;
+}
   
-  .node-start {
-    background-color: green;
-  }
+.node-start {
+  background-color: green;
+}
 
-  
+.node-wall {
+  background-color: black;
+}
+
+.node-weight {
+  background-color: purple;
+}
