@@ -37,18 +37,37 @@ export default class PathFinding extends Component {
     super();
     this.state = {
       grid: [],
+      message: "Mouse Event"
     };
   }
 
   componentDidMount() {
     const grid = getInitialGrid();
-    this.setState({grid});
+    console.log(grid[0][0]);
+    this.setState({grid: grid});
   }
+
+
+  
+
+
+  handleEvent = (event) => {
+    if (event.type === "mousedown") {
+           this.setState({ message: "Mouse Down"});
+           console.log(this.state.message)
+       } else {
+           this.setState({ message: "Mouse Up"});
+           console.log(this.state.message)
+       }
+   }
 
   render() {
     const {grid} = this.state;
-
     return (
+      <>
+        <button className="btn btn-secondary" onMouseDown={ this.handleEvent } onMouseUp={ this.handleEvent } >
+          Visualize
+        </button>
       <div className="grid">>
         {grid.map((row, rowIdx) => {
           return (
@@ -70,6 +89,7 @@ export default class PathFinding extends Component {
           );
         })}
       </div>
+      </>
     );
   }
 }
