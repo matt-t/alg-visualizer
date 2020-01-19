@@ -1,15 +1,22 @@
-/* body { 
+body { 
   background-color:white;
-  background: url('space.jpg') no-repeat center center fixed; 
+  background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url('space.jpg') no-repeat center center fixed; 
   background-size: cover;
-} */
+}
+
+.title {
+  font-weight: bold;
+  color: darkslategray;
+}
 
 .grid {
-  margin-top: 1%;
   width: 100%
 }
 
 .button {
-  margin-top: 5%;
   width: 20%
+}
+
+.italic {
+  font-style: italic;
 }

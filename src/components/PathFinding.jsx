@@ -122,8 +122,10 @@ export default class PathFinding extends Component {
   render() {
     const {grid, mouseIsPressed} = this.state;
     return (
-      <>
       <div>
+      <div>
+        <h1 className ="title">PATH FINDER VISUALIZER</h1>
+        <p className ="italic">Made by: Dan Lu & Matthew Tam</p>
         <button className="button" onClick={() => this.visualizeAlg() }>
           Visualize
         </button>
@@ -159,7 +161,7 @@ export default class PathFinding extends Component {
           );
         })}
       </div>
-      </>
+      </div>
     );
   }
 }

@@ -14,7 +14,7 @@
 }
 
 .node-normal {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.61);
 }
 
 .node-wall {
@@ -22,5 +22,5 @@
 }
 
 .node-weight {
-  background-color: lightgrey;
+  background-color: rgb(107, 105, 105);
 }
