@@ -74,9 +74,15 @@ export default class PathFinding extends Component {
     this.setState({grid: grid});
   }
   handleMouseDown(row, col) {
+    // console.log(row)
+    // console.log(col)
     var newGrid = []
-    if (this.state.addingWalls) {
+    if (this.state.grid[row][col].isFinish) {
+      //console.log('stop')
+      return;
+    } else if (this.state.addingWalls) {
       newGrid = swapWall(this.state.grid, row, col)
+      //console.log('swap')
     } else {
       newGrid = swapWeight(this.state.grid, row, col)}
     // const newGrid = getWallOrWeight(this.state.grid, row, col);
@@ -87,7 +93,10 @@ export default class PathFinding extends Component {
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return;
     var newGrid = []
-    if (this.state.addingWalls) {
+    if (this.state.grid[row][col].isFinish) {
+      //console.log('stop')
+      return;
+    } else if (this.state.addingWalls) {
       newGrid = swapWall(this.state.grid, row, col)
     } else {
       newGrid = swapWeight(this.state.grid, row, col)}
@@ -97,7 +106,7 @@ export default class PathFinding extends Component {
 
   handleMouseUp() {
     this.setState({mouseIsPressed: false});
-    console.log('STOP');
+    //console.log('STOP');
   }
 
   handleChangeWall () {
