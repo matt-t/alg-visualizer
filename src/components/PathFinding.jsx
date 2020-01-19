@@ -73,6 +73,7 @@ export default class PathFinding extends Component {
     console.log(grid[0][0]);
     this.setState({grid: grid});
   }
+
   handleMouseDown(row, col) {
     // console.log(row)
     // console.log(col)
@@ -115,6 +116,13 @@ export default class PathFinding extends Component {
     console.log(this.state.message)
   }
 
+  //kinda sketch need to bug
+  resetGrid () {
+    const grid = getInitialGrid();
+    console.log(grid[0][0]);
+    this.setState({grid: grid});
+  }
+
   // visualizeAlg () {
   //   const bigArray = dijkstra(this.state.grid, START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL);
   // }
@@ -128,6 +136,9 @@ export default class PathFinding extends Component {
         <p className ="italic">Made by: Dan Lu & Matthew Tam</p>
         <button className="button" onClick={() => this.visualizeAlg() }>
           Visualize
+        </button>
+        <button className="button" onClick={() => this.resetGrid() }>
+          Reset
         </button>
         <button className="button" onClick={() => this.handleChangeWall() }>
           Change Wall
