@@ -74,18 +74,6 @@ export default class PathFinding extends Component {
     const grid = getInitialGrid();
     this.setState({ grid: grid });
   }
-  /*
-  clap = (grid, row, col) => {
-    const node = grid[row][col];
-    const newNode = {
-      ...node,
-      isWall: !node.isWall
-    };
-    grid[row][col] = newNode;
-    return 
-    }
-  }
-  */
 
   handleMouseDown(row, col) {
     // console.log(row)
@@ -146,8 +134,28 @@ export default class PathFinding extends Component {
     const shortestPath = getPath(
       this.state.grid[FINISH_NODE_ROW][FINISH_NODE_COL]
     );
-    console.log("these are my visitedNodes", bigArray);
+    this.drawSearch(bigArray);
+    this.drawFastestPath(shortestPath);
+  }
+
+  drawSearch(visitedNodes) {
+    console.log("these are my visitedNodes", visitedNodes);
+    var i;
+    for (i = 0; i < visitedNodes.length; i++) {
+      setTimeout(() => {
+        const node = visitedNodes[i];
+      }, 50 * i);
+    }
+  }
+
+  drawFastestPath(shortestPath) {
     console.log("this is my shortest path", shortestPath);
+    var i;
+    for (i = 0; i < shortestPath.length; i++) {
+      setTimeout(() => {
+        const node = shortestPath[i];
+      }, 50 * i);
+    }
   }
 
   render() {
