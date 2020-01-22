@@ -138,7 +138,7 @@ export default class PathFinding extends Component {
     this.setState({ grid: grid });
   }
 
-  visualizeAlg() {
+  createPathArr() {
     const bigArray = dijkstra(
       this.state.grid,
       this.state.grid[START_NODE_ROW][START_NODE_COL]
@@ -157,7 +157,7 @@ export default class PathFinding extends Component {
         <div>
           <h1 className="title">PATHFINDER VISUALIZER</h1>
           <p className="italic">Made by: Dan Lu & Matthew Tam</p>
-          <button className="button" onClick={() => this.visualizeAlg()}>
+          <button className="button" onClick={() => this.createPathArr()}>
             Visualize
           </button>
           <button className="button" onClick={() => this.resetGrid()}>
