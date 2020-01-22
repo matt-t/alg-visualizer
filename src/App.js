@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import board from './components/board'
+import PathFinding from './components/PathFinding';
 
 function App() {
   return (
-    <div>
-      <board />
+    <div className="App">
+      <PathFinding />
     </div>
   );
 }

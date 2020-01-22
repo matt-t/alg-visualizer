@@ -1,0 +1,26 @@
+.node {
+    width: 20px;
+    height: 20px;
+    outline: 2px solid royalblue;
+    display: inline-block;
+}
+  
+.node-finish {
+  background-color: red;
+}
+  
+.node-start {
+  background-color: green;
+}
+
+.node-normal {
+  background-color: rgba(255, 255, 255, 0.61);
+}
+
+.node-wall {
+  background-color: black;
+}
+
+.node-weight {
+  background-color: rgb(107, 105, 105);
+}
