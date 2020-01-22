@@ -1,14 +1,14 @@
 .node {
-    width: 20px;
-    height: 20px;
-    outline: 2px solid royalblue;
-    display: inline-block;
+  width: 20px;
+  height: 20px;
+  outline: 2px solid royalblue;
+  display: inline-block;
 }
-  
+
 .node-finish {
   background-color: red;
 }
-  
+
 .node-start {
   background-color: green;
 }
