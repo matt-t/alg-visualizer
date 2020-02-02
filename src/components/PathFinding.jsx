@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Cell from "./Cell";
 import "./PathFinding.css";
-import { dijkstra, getPath } from "./algorithm";
+import { dijkstra, getPath, displayVisitedNodes } from "./algorithm";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -146,8 +146,60 @@ export default class PathFinding extends Component {
     const shortestPath = getPath(
       this.state.grid[FINISH_NODE_ROW][FINISH_NODE_COL]
     );
+    displayVisitedNodes(bigArray);
     console.log("these are my visitedNodes", bigArray);
     console.log("this is my shortest path", shortestPath);
+  }
+
+  animateDijkstra(visitedNodesInOrder, shortestPath) {
+    const numNodes = visitedNodesInOrder.length
+    for (let curNode = 0; curNode <= numNodes; curNode++) {
+      if (curNode === numNodes) {
+        setTimeout(() => {
+          this.animateShortestPath(shortestPath);
+        }, 10 * curNode);
+        return;
+      }
+      setTimeout(() => {
+        const node = visitedNodesInOrder[curNode];
+        if (curNode === numNodes - 1) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-finish';
+        } else if (curNode === 0) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-start';
+        } else
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-visited';
+      }, 8 * curNode);
+    }
+  }
+
+  animateShortestPath(nodePath) {
+    const pathLength = nodePath.length
+    for (let curNode = 0; curNode < pathLength; curNode++) {
+      setTimeout(() => {
+        const node = nodePath[curNode];
+        if (curNode === pathLength - 1) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-finish-found';
+        } else if (curNode === 0) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-start';
+        } else
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-shortest-path';
+      }, 50 * curNode);
+    }
+  }
+
+  visualizeDijkstra() {
+    const { grid } = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodesInOrder = dijkstra(grid, startNode);
+    const nodesInShortestPathOrder = getPath(finishNode);
+    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   render() {
@@ -157,7 +209,7 @@ export default class PathFinding extends Component {
         <div>
           <h1 className="title">PATHFINDER VISUALIZER</h1>
           <p className="italic">Made by: Dan Lu & Matthew Tam</p>
-          <button className="button" onClick={() => this.createPathArr()}>
+          <button className="button" onClick={() => this.visualizeDijkstra()}>
             Visualize
           </button>
           <button className="button" onClick={() => this.resetGrid()}>
@@ -179,7 +231,7 @@ export default class PathFinding extends Component {
                     isFinish,
                     isStart,
                     isWeight,
-                    isWall
+                    isWall,
                   } = node;
                   return (
                     <Cell

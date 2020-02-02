@@ -100,3 +100,9 @@ function getAllNodes(grid) {
   }
   return nodeArr;
 }
+
+export function displayVisitedNodes(nodeArr) {
+  for (const node of nodeArr) {
+    console.log(node.isVisited)
+  }
+}

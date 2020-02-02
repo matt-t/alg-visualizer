@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './Cell.css';
 
@@ -10,6 +10,7 @@ export default class Cell extends Component {
       isStart,
       isWeight,
       isWall,
+      isVisited,
       onMouseDown,
       onMouseEnter,
       onMouseUp,
@@ -18,12 +19,15 @@ export default class Cell extends Component {
     const extraClassName = isFinish
       ? 'node-finish'
       : isStart
-      ? 'node-start'
-      : isWall
-      ? 'node-wall'
-      : isWeight
-      ? 'node-weight'
-      : 'node-normal'
+        ? 'node-start'
+        : isWall
+          ? 'node-wall'
+          : isWeight
+            ? 'node-weight'
+            : isVisited
+              ? 'node-visited'
+              : 'node-normal'
+      ;
 
     return (
       <div
@@ -31,7 +35,7 @@ export default class Cell extends Component {
         className={`node ${extraClassName}`}
         onMouseDown={() => onMouseDown(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
-        onMouseUp={() => onMouseUp()}>   
+        onMouseUp={() => onMouseUp()}>
       </div>
     );
   }

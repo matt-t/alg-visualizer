@@ -24,3 +24,15 @@
 .node-weight {
   background-color: rgb(107, 105, 105);
 }
+
+.node-visited {
+  background-color: lightcoral;
+}
+
+.node-shortest-path {
+  background-color: yellow;
+}
+
+.node-finish-found {
+  background-color: black;
+}
