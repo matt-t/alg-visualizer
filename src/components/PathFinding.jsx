@@ -21,6 +21,23 @@ const getInitialGrid = () => {
   return grid;
 };
 
+const clearGrid = () => {
+  const grid = [];
+  for (let row = 0; row < 25; row++) {
+    const currentRow = [];
+    for (let col = 0; col < 50; col++) {
+      const node = createNode(col, row)
+      if (row !== START_NODE_ROW || (col !== START_NODE_COL && col !== FINISH_NODE_COL)) {
+        document.getElementById(`node-${node.row}-${node.col}`).className =' node node-normal'
+      }
+      currentRow.push(node);
+    }
+    grid.push(currentRow);
+  }
+  console.log("This is grid in function", grid);
+  return grid;
+};
+
 const createNode = (col, row) => {
   return {
     col,
@@ -131,13 +148,6 @@ export default class PathFinding extends Component {
     console.log(this.state.message);
   }
 
-  //kinda sketch need to bug
-  resetGrid() {
-    const grid = getInitialGrid();
-    console.log(grid[0][0]);
-    this.setState({ grid: grid });
-  }
-
   createPathArr() {
     const bigArray = dijkstra(
       this.state.grid,
@@ -202,6 +212,13 @@ export default class PathFinding extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  //kinda sketch need to bug
+  resetGrid() {
+    const newGrid = clearGrid();
+    console.log(newGrid[0][0]);
+    this.setState({ grid: newGrid });
+  }
+
   render() {
     const { grid, mouseIsPressed } = this.state;
     return (
@@ -220,7 +237,6 @@ export default class PathFinding extends Component {
           </button>
         </div>
         <div className="grid">
-          >
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
